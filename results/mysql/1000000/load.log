@@ -1,0 +1,19 @@
+warning: use of deprecated method `chrono::NaiveDateTime::timestamp_subsec_micros`: use `.and_utc().timestamp_subsec_micros()` instead
+   --> src/load.rs:219:28
+    |
+219 |             row.created_at.timestamp_subsec_micros(),
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: `db-performance-obvser` (bin "db-performance-obvser") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.11s
+     Running `target/release/db-performance-obvser --db mysql load --scale 1000000 --concurrency 8 --batch-size 10000 --indexes on`
+[2m2025-12-06T07:15:36.944521Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m 当前已有 500000 行，目标 1000000 行，本次需新增 500000 行
+[2m2025-12-06T07:15:36.947943Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 索引已开启
+[2m2025-12-06T07:15:37.919145Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 100000 行, 102970.37 rows/s
+[2m2025-12-06T07:15:38.361679Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 200000 行, 141473.80 rows/s
+[2m2025-12-06T07:15:38.905933Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 300000 行, 153222.07 rows/s
+[2m2025-12-06T07:15:39.353762Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 400000 行, 166266.74 rows/s
+[2m2025-12-06T07:15:39.943396Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 500000 行, 166922.31 rows/s
+[2m2025-12-06T07:15:39.943635Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 装载完成，总行数 500000，耗时 3.00s

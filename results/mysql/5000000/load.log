@@ -1,0 +1,44 @@
+warning: use of deprecated method `chrono::NaiveDateTime::timestamp_subsec_micros`: use `.and_utc().timestamp_subsec_micros()` instead
+   --> src/load.rs:219:28
+    |
+219 |             row.created_at.timestamp_subsec_micros(),
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: `db-performance-obvser` (bin "db-performance-obvser") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.11s
+     Running `target/release/db-performance-obvser --db mysql load --scale 5000000 --concurrency 8 --batch-size 10000 --indexes on`
+[2m2025-12-06T07:17:10.180567Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m 当前已有 2000000 行，目标 5000000 行，本次需新增 3000000 行
+[2m2025-12-06T07:17:10.183690Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 索引已开启
+[2m2025-12-06T07:17:11.129157Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 100000 行, 105772.65 rows/s
+[2m2025-12-06T07:17:11.590088Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 200000 行, 142212.26 rows/s
+[2m2025-12-06T07:17:12.412408Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 300000 行, 134609.02 rows/s
+[2m2025-12-06T07:17:13.166488Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 400000 行, 134104.16 rows/s
+[2m2025-12-06T07:17:13.966123Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 500000 行, 132191.46 rows/s
+[2m2025-12-06T07:17:14.451024Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 600000 行, 140604.31 rows/s
+[2m2025-12-06T07:17:15.116227Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 700000 行, 141915.98 rows/s
+[2m2025-12-06T07:17:15.657581Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 800000 行, 146149.38 rows/s
+[2m2025-12-06T07:17:16.335938Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 900000 行, 146288.94 rows/s
+[2m2025-12-06T07:17:16.840146Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1000000 行, 150230.98 rows/s
+[2m2025-12-06T07:17:18.962361Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1100000 行, 125304.27 rows/s
+[2m2025-12-06T07:17:19.842333Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1200000 行, 124241.58 rows/s
+[2m2025-12-06T07:17:20.715907Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1300000 行, 123431.26 rows/s
+[2m2025-12-06T07:17:22.234806Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1400000 行, 116172.20 rows/s
+[2m2025-12-06T07:17:23.503611Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1500000 行, 112613.62 rows/s
+[2m2025-12-06T07:17:25.064860Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1600000 行, 107518.73 rows/s
+[2m2025-12-06T07:17:25.982442Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1700000 行, 107603.71 rows/s
+[2m2025-12-06T07:17:27.224999Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1800000 行, 105625.95 rows/s
+[2m2025-12-06T07:17:28.215637Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 1900000 行, 105368.77 rows/s
+[2m2025-12-06T07:17:29.930111Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2000000 行, 101284.38 rows/s
+[2m2025-12-06T07:17:31.215978Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2100000 行, 99846.68 rows/s
+[2m2025-12-06T07:17:33.018918Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2200000 行, 96342.54 rows/s
+[2m2025-12-06T07:17:34.236787Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2300000 行, 95621.94 rows/s
+[2m2025-12-06T07:17:36.755707Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2400000 行, 90320.71 rows/s
+[2m2025-12-06T07:17:37.444211Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2500000 行, 91707.84 rows/s
+[2m2025-12-06T07:17:39.395624Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2600000 行, 89004.84 rows/s
+[2m2025-12-06T07:17:40.116906Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2700000 行, 90200.92 rows/s
+[2m2025-12-06T07:17:42.295627Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2800000 行, 87195.10 rows/s
+[2m2025-12-06T07:17:43.709069Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 2900000 行, 86501.74 rows/s
+[2m2025-12-06T07:17:44.609501Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 已插入 3000000 行, 87144.02 rows/s
+[2m2025-12-06T07:17:44.609784Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m MySQL 装载完成，总行数 3000000，耗时 34.43s

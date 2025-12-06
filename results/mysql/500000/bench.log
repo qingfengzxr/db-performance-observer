@@ -1,0 +1,109 @@
+warning: use of deprecated method `chrono::NaiveDateTime::timestamp_subsec_micros`: use `.and_utc().timestamp_subsec_micros()` instead
+   --> src/load.rs:219:28
+    |
+219 |             row.created_at.timestamp_subsec_micros(),
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: `db-performance-obvser` (bin "db-performance-obvser") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.12s
+     Running `target/release/db-performance-obvser --db mysql bench --concurrency 16 --warmup-ops 1000 --sample-ops 5000 --seed 42 --output results/mysql/500000/bench.json`
+[2m2025-12-06T07:15:34.514341Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 500 次采样, 16867.64 ops/s
+[2m2025-12-06T07:15:34.524461Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 1000 次采样, 25148.27 ops/s
+[2m2025-12-06T07:15:34.534670Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 1500 次采样, 30015.65 ops/s
+[2m2025-12-06T07:15:34.544258Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 2000 次采样, 33578.85 ops/s
+[2m2025-12-06T07:15:34.556377Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 2500 次采样, 34877.44 ops/s
+[2m2025-12-06T07:15:34.567067Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 3000 次采样, 36420.60 ops/s
+[2m2025-12-06T07:15:34.575881Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 3500 次采样, 38383.85 ops/s
+[2m2025-12-06T07:15:34.584854Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 4000 次采样, 39936.78 ops/s
+[2m2025-12-06T07:15:34.597793Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 4500 次采样, 39788.63 ops/s
+[2m2025-12-06T07:15:34.611476Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit mysql 已完成 5000 次采样, 39438.25 ops/s
+[2m2025-12-06T07:15:34.639102Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 500 次采样, 18215.31 ops/s
+[2m2025-12-06T07:15:34.647752Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 1000 次采样, 27700.91 ops/s
+[2m2025-12-06T07:15:34.656566Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 1500 次采样, 33397.05 ops/s
+[2m2025-12-06T07:15:34.665573Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 2000 次采样, 37092.46 ops/s
+[2m2025-12-06T07:15:34.675377Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 2500 次采样, 39231.26 ops/s
+[2m2025-12-06T07:15:34.684571Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 3000 次采样, 41141.69 ops/s
+[2m2025-12-06T07:15:34.693309Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 3500 次采样, 42862.72 ops/s
+[2m2025-12-06T07:15:34.702129Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 4000 次采样, 44210.05 ops/s
+[2m2025-12-06T07:15:34.711119Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 4500 次采样, 45241.05 ops/s
+[2m2025-12-06T07:15:34.721116Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup mysql 已完成 5000 次采样, 45677.07 ops/s
+[2m2025-12-06T07:15:34.871277Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 500 次采样, 3333.74 ops/s
+[2m2025-12-06T07:15:34.922120Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 1000 次采样, 4979.46 ops/s
+[2m2025-12-06T07:15:34.972480Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 1500 次采样, 5971.69 ops/s
+[2m2025-12-06T07:15:35.027004Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 2000 次采样, 6542.18 ops/s
+[2m2025-12-06T07:15:35.085186Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 2500 次采样, 6870.21 ops/s
+[2m2025-12-06T07:15:35.139254Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 3000 次采样, 7177.74 ops/s
+[2m2025-12-06T07:15:35.191324Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 3500 次采样, 7446.35 ops/s
+[2m2025-12-06T07:15:35.241862Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 4000 次采样, 7683.92 ops/s
+[2m2025-12-06T07:15:35.292440Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 4500 次采样, 7878.92 ops/s
+[2m2025-12-06T07:15:35.353476Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small mysql 已完成 5000 次采样, 7909.13 ops/s
+[2m2025-12-06T07:15:35.640239Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 500 次采样, 1744.67 ops/s
+[2m2025-12-06T07:15:35.744777Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 1000 次采样, 2556.73 ops/s
+[2m2025-12-06T07:15:35.845464Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 1500 次采样, 3049.95 ops/s
+[2m2025-12-06T07:15:35.940426Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 2000 次采样, 3408.47 ops/s
+[2m2025-12-06T07:15:36.036456Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 2500 次采样, 3661.38 ops/s
+[2m2025-12-06T07:15:36.132193Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 3000 次采样, 3853.36 ops/s
+[2m2025-12-06T07:15:36.228187Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 3500 次采样, 4002.13 ops/s
+[2m2025-12-06T07:15:36.329086Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 4000 次采样, 4100.78 ops/s
+[2m2025-12-06T07:15:36.436239Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 4500 次采样, 4156.71 ops/s
+[2m2025-12-06T07:15:36.545722Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large mysql 已完成 5000 次采样, 4194.38 ops/s
+[2m2025-12-06T07:15:36.582291Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 500 次采样, 13741.29 ops/s
+[2m2025-12-06T07:15:36.594382Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 1000 次采样, 20627.75 ops/s
+[2m2025-12-06T07:15:36.605056Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 1500 次采样, 25358.40 ops/s
+[2m2025-12-06T07:15:36.616971Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 2000 次采样, 28142.20 ops/s
+[2m2025-12-06T07:15:36.630579Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 2500 次采样, 29524.62 ops/s
+[2m2025-12-06T07:15:36.641921Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 3000 次采样, 31244.49 ops/s
+[2m2025-12-06T07:15:36.653641Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 3500 次采样, 32486.31 ops/s
+[2m2025-12-06T07:15:36.665543Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 4000 次采样, 33434.05 ops/s
+[2m2025-12-06T07:15:36.677686Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 4500 次采样, 34147.34 ops/s
+[2m2025-12-06T07:15:36.691536Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page mysql 已完成 5000 次采样, 34333.08 ops/s
+[
+  {
+    "scenario": "pk_hit",
+    "ops": 5000,
+    "throughput_ops": 39384.099169350746,
+    "avg_ms": 0.2284081590000004,
+    "p50_ms": 0.216047,
+    "p95_ms": 0.425604,
+    "p99_ms": 0.641066
+  },
+  {
+    "scenario": "user_lookup",
+    "ops": 5000,
+    "throughput_ops": 45603.081739520065,
+    "avg_ms": 0.27912196699999936,
+    "p50_ms": 0.26779000000000003,
+    "p95_ms": 0.43941899999999995,
+    "p99_ms": 0.6061270000000001
+  },
+  {
+    "scenario": "range_small",
+    "ops": 5000,
+    "throughput_ops": 7906.942485426964,
+    "avg_ms": 1.6509299126000012,
+    "p50_ms": 1.534398,
+    "p95_ms": 2.852937,
+    "p99_ms": 3.478907
+  },
+  {
+    "scenario": "range_large",
+    "ops": 5000,
+    "throughput_ops": 4193.749017132011,
+    "avg_ms": 3.106411201599996,
+    "p50_ms": 2.867235,
+    "p95_ms": 5.193529,
+    "p99_ms": 6.396278
+  },
+  {
+    "scenario": "order_page",
+    "ops": 5000,
+    "throughput_ops": 34292.20417353408,
+    "avg_ms": 0.37396457580000114,
+    "p50_ms": 0.351344,
+    "p95_ms": 0.594347,
+    "p99_ms": 0.806271
+  }
+]
+[2m2025-12-06T07:15:36.691870Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m 基准结果已写入 "results/mysql/500000/bench.json"
