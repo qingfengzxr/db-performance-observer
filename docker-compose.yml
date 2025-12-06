@@ -1,0 +1,53 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dbperf-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: perf
+      MYSQL_USER: perf
+      MYSQL_PASSWORD: perf
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init/mysql:/docker-entrypoint-initdb.d:ro,Z
+      - mysql_data:/var/lib/mysql
+    command:
+      - "--innodb-buffer-pool-size=1G"
+      - "--innodb-log-file-size=256M"
+      - "--max-connections=500"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  postgres:
+    image: postgres:16
+    container_name: dbperf-postgres
+    environment:
+      POSTGRES_USER: perf
+      POSTGRES_PASSWORD: perf
+      POSTGRES_DB: perf
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init/postgres:/docker-entrypoint-initdb.d:ro,Z
+      - pg_data:/var/lib/postgresql/data
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_buffers=1GB"
+      - "-c"
+      - "max_connections=500"
+      - "-c"
+      - "wal_level=replica"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U perf -d perf"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql_data:
+  pg_data:
