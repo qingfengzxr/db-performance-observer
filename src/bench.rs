@@ -333,7 +333,7 @@ async fn exec_postgres(
 ) -> Result<()> {
     match sc.param {
         ParamKind::None => {
-            let _ = client.query_opt(sc.postgres_sql, &[]).await?;
+            let _ = client.query(sc.postgres_sql, &[]).await?;
         }
         ParamKind::PkHit => {
             let id = rng.gen_range(1..=max_id as i64);

@@ -6,8 +6,9 @@ use chrono::{Datelike, Timelike};
 use mysql_async::{prelude::*, Conn as MyConn, Params as MyParams, Pool as MyPool, Value as MyValue};
 use tokio::task::JoinSet;
 use tokio::time::Instant;
-use tokio_postgres::types::ToSql;
 use tokio_postgres::Client as PgClient;
+use bytes::Bytes;
+use futures_util::{pin_mut, sink::SinkExt};
 
 use crate::config::{DbConfig, Distribution, IndexMode};
 use crate::generator::{EventGenerator, EventRow};
@@ -70,6 +71,7 @@ async fn load_mysql(url: &str, cfg: &LoadConfig, remaining: u64, _gen: &mut Even
     }
 
     let workers = cfg.concurrency.max(1).min(remaining as usize);
+    let batch_cap = cfg.batch_size.min(1_000); // 防止单批 payload 过大导致 PG 报 “value too large to transmit”
     let base_quota = remaining / workers as u64;
     let remainder = remaining % workers as u64;
     let total = Arc::new(AtomicU64::new(0));
@@ -81,7 +83,7 @@ async fn load_mysql(url: &str, cfg: &LoadConfig, remaining: u64, _gen: &mut Even
         let mut generator =
             EventGenerator::with_seed(cfg.distribution, cfg.payload_size, worker_id as u64 + 1);
         let pool = pool.clone();
-        let batch_size = cfg.batch_size;
+        let batch_size = batch_cap;
         let total = total.clone();
         let start = start.clone();
 
@@ -129,7 +131,7 @@ async fn load_mysql(url: &str, cfg: &LoadConfig, remaining: u64, _gen: &mut Even
     Ok(())
 }
 
-async fn load_postgres(url: &str, cfg: &LoadConfig, remaining: u64, _gen: &mut EventGenerator) -> Result<()> {
+async fn load_postgres(url: &str, cfg: &LoadConfig, remaining: u64, generator: &mut EventGenerator) -> Result<()> {
     let (client, connection) = tokio_postgres::connect(url, tokio_postgres::NoTls).await?;
     tokio::spawn(async move {
         if let Err(e) = connection.await {
@@ -138,63 +140,44 @@ async fn load_postgres(url: &str, cfg: &LoadConfig, remaining: u64, _gen: &mut E
     });
     configure_postgres_indexes(&client, cfg.indexes).await?;
 
-    let workers = cfg.concurrency.max(1).min(remaining as usize);
-    let base_quota = remaining / workers as u64;
-    let remainder = remaining % workers as u64;
-    let total = Arc::new(AtomicU64::new(0));
+    // 使用 COPY 流式写入，避免超大批次 INSERT
+    let batch_cap = cfg.batch_size.min(1_000);
     let start = Instant::now();
+    let mut inserted: u64 = 0;
+    let sink = client
+        .copy_in("COPY public.events (user_id, created_at, amount, status, category, payload) FROM STDIN")
+        .await?;
+    pin_mut!(sink);
 
-    let mut tasks = JoinSet::new();
-    for worker_id in 0..workers {
-        let quota = base_quota + if worker_id < remainder as usize { 1 } else { 0 };
-        let mut generator =
-            EventGenerator::with_seed(cfg.distribution, cfg.payload_size, worker_id as u64 + 1);
-        let url = url.to_string();
-        let batch_size = cfg.batch_size;
-        let total = total.clone();
-        let start = start.clone();
-
-        tasks.spawn(async move {
-            let (client, connection) = tokio_postgres::connect(&url, tokio_postgres::NoTls).await?;
-            tokio::spawn(async move {
-                if let Err(e) = connection.await {
-                    tracing::error!("Postgres worker 连接任务出错: {}", e);
-                }
-            });
-
-            let mut inserted: u64 = 0;
-            while inserted < quota {
-                let remaining = (quota - inserted) as usize;
-                let this_batch = remaining.min(batch_size);
-                let rows = generator.next_batch(this_batch);
-                let (sql, params) = build_postgres_insert(&rows);
-                let param_refs: Vec<&(dyn ToSql + Sync)> = params
-                    .iter()
-                    .map(|p| p.as_ref() as &(dyn ToSql + Sync))
-                    .collect();
-                client.execute(sql.as_str(), &param_refs).await?;
-                inserted += rows.len() as u64;
-
-                let prev = total.fetch_add(rows.len() as u64, Ordering::Relaxed);
-                let new_total = prev + rows.len() as u64;
-                if new_total / 100_000 != prev / 100_000 {
-                    let rps = new_total as f64 / start.elapsed().as_secs_f64().max(0.001);
-                    tracing::info!("Postgres 已插入 {} 行, {:.2} rows/s", new_total, rps);
-                }
-            }
-
-            Ok::<(), anyhow::Error>(())
-        });
+    while inserted < remaining {
+        let remaining_rows = (remaining - inserted) as usize;
+        let this_batch = remaining_rows.min(batch_cap);
+        let rows = generator.next_batch(this_batch);
+        let mut buf = String::new();
+        for row in rows {
+            buf.push_str(&format!(
+                "{}\t{}\t{:.2}\t{}\t{}\t{}\n",
+                row.user_id,
+                row.created_at.format("%Y-%m-%d %H:%M:%S"),
+                row.amount,
+                row.status,
+                row.category,
+                row.payload
+            ));
+        }
+        sink.as_mut().send(Bytes::from(buf)).await?;
+        inserted += this_batch as u64;
+        if inserted / 100_000 != (inserted - this_batch as u64) / 100_000 || inserted == remaining {
+            let rps = inserted as f64 / start.elapsed().as_secs_f64().max(0.001);
+            tracing::info!("Postgres 已插入 {} 行, {:.2} rows/s", inserted, rps);
+        }
     }
+    sink.as_mut().send(Bytes::from_static(b"\\.\n")).await?;
+    sink.close().await?;
 
-    while let Some(res) = tasks.join_next().await {
-        res??;
-    }
-
-    let total_inserted = total.load(Ordering::Relaxed);
     tracing::info!(
         "Postgres 装载完成，总行数 {}，耗时 {:.2}s",
-        total_inserted,
+        inserted,
         start.elapsed().as_secs_f64()
     );
     client.execute("ANALYZE events", &[]).await?;
@@ -230,38 +213,6 @@ fn build_mysql_insert(rows: &[EventRow]) -> (String, MyParams) {
         placeholders.join(",")
     );
     (sql, MyParams::Positional(values))
-}
-
-fn build_postgres_insert(rows: &[EventRow]) -> (String, Vec<Box<dyn ToSql + Send + Sync>>) {
-    let mut placeholders = Vec::with_capacity(rows.len());
-    let mut params: Vec<Box<dyn ToSql + Send + Sync>> = Vec::with_capacity(rows.len() * 6);
-    let mut idx = 1;
-
-    for row in rows {
-        placeholders.push(format!(
-            "(${},{},{},{},{},{})",
-            idx,
-            idx + 1,
-            idx + 2,
-            idx + 3,
-            idx + 4,
-            idx + 5
-        ));
-        idx += 6;
-        params.push(Box::new(row.user_id));
-        params.push(Box::new(row.created_at));
-        params.push(Box::new(row.amount));
-        params.push(Box::new(row.status));
-        params.push(Box::new(row.category));
-        params.push(Box::new(row.payload.clone()));
-    }
-
-    let sql = format!(
-        "INSERT INTO events (user_id, created_at, amount, status, category, payload) VALUES {}",
-        placeholders.join(",")
-    );
-
-    (sql, params)
 }
 
 async fn configure_mysql_indexes(conn: &mut MyConn, mode: IndexMode) -> Result<()> {

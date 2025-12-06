@@ -1,0 +1,27 @@
+warning: use of deprecated method `chrono::NaiveDateTime::timestamp_subsec_micros`: use `.and_utc().timestamp_subsec_micros()` instead
+   --> src/load.rs:202:28
+    |
+202 |             row.created_at.timestamp_subsec_micros(),
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: `db-performance-obvser` (bin "db-performance-obvser") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.12s
+     Running `target/release/db-performance-obvser --db postgres load --scale 2000000 --concurrency 8 --batch-size 10000 --indexes on`
+[2m2025-12-06T13:54:48.453371Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m 当前已有 1000000 行，目标 2000000 行，本次需新增 1000000 行
+[2m2025-12-06T13:54:48.461936Z[0m [32m INFO[0m [2mtokio_postgres::connection[0m[2m:[0m NOTICE: relation "idx_user_created" already exists, skipping
+[2m2025-12-06T13:54:48.462192Z[0m [32m INFO[0m [2mtokio_postgres::connection[0m[2m:[0m NOTICE: relation "idx_status" already exists, skipping
+[2m2025-12-06T13:54:48.462379Z[0m [32m INFO[0m [2mtokio_postgres::connection[0m[2m:[0m NOTICE: relation "idx_created_at" already exists, skipping
+[2m2025-12-06T13:54:48.462398Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 索引已开启
+[2m2025-12-06T13:54:49.183084Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 100000 行, 138759.76 rows/s
+[2m2025-12-06T13:54:50.090110Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 200000 行, 122872.53 rows/s
+[2m2025-12-06T13:54:50.946194Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 300000 行, 120783.31 rows/s
+[2m2025-12-06T13:54:51.863751Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 400000 行, 117600.62 rows/s
+[2m2025-12-06T13:54:52.722294Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 500000 行, 117374.07 rows/s
+[2m2025-12-06T13:54:53.689357Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 600000 行, 114789.71 rows/s
+[2m2025-12-06T13:54:54.585679Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 700000 行, 114317.97 rows/s
+[2m2025-12-06T13:54:55.553955Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 800000 行, 112810.37 rows/s
+[2m2025-12-06T13:54:56.492317Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 900000 行, 112080.97 rows/s
+[2m2025-12-06T13:54:57.686505Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 已插入 1000000 行, 108411.68 rows/s
+[2m2025-12-06T13:54:57.920489Z[0m [32m INFO[0m [2mdb_performance_obvser::load[0m[2m:[0m Postgres 装载完成，总行数 1000000，耗时 9.46s

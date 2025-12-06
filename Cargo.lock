@@ -507,8 +507,10 @@ name = "db-performance-obvser"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "bytes",
  "chrono",
  "clap",
+ "futures-util",
  "mysql_async",
  "rand 0.8.5",
  "rand_distr",

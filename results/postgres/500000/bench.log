@@ -1,0 +1,109 @@
+warning: use of deprecated method `chrono::NaiveDateTime::timestamp_subsec_micros`: use `.and_utc().timestamp_subsec_micros()` instead
+   --> src/load.rs:202:28
+    |
+202 |             row.created_at.timestamp_subsec_micros(),
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(deprecated)]` on by default
+
+warning: `db-performance-obvser` (bin "db-performance-obvser") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.12s
+     Running `target/release/db-performance-obvser --db postgres bench --concurrency 16 --warmup-ops 1000 --sample-ops 5000 --seed 42 --output results/postgres/500000/bench.json`
+[2m2025-12-06T13:54:38.436677Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 500 次采样, 5642.06 ops/s
+[2m2025-12-06T13:54:38.457012Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 1000 次采样, 9177.62 ops/s
+[2m2025-12-06T13:54:38.475452Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 1500 次采样, 11773.80 ops/s
+[2m2025-12-06T13:54:38.496679Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 2000 次采样, 13456.43 ops/s
+[2m2025-12-06T13:54:38.518621Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 2500 次采样, 14656.72 ops/s
+[2m2025-12-06T13:54:38.538691Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 3000 次采样, 15736.48 ops/s
+[2m2025-12-06T13:54:38.558581Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 3500 次采样, 16624.78 ops/s
+[2m2025-12-06T13:54:38.577493Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 4000 次采样, 17433.57 ops/s
+[2m2025-12-06T13:54:38.597797Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 4500 次采样, 18018.40 ops/s
+[2m2025-12-06T13:54:38.623968Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=pk_hit postgres 已完成 5000 次采样, 18121.36 ops/s
+[2m2025-12-06T13:54:38.722466Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 500 次采样, 5088.13 ops/s
+[2m2025-12-06T13:54:38.744334Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 1000 次采样, 8323.82 ops/s
+[2m2025-12-06T13:54:38.769158Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 1500 次采样, 10347.62 ops/s
+[2m2025-12-06T13:54:38.792725Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 2000 次采样, 11867.56 ops/s
+[2m2025-12-06T13:54:38.815040Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 2500 次采样, 13099.76 ops/s
+[2m2025-12-06T13:54:38.834454Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 3000 次采样, 14268.27 ops/s
+[2m2025-12-06T13:54:38.855234Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 3500 次采样, 15149.16 ops/s
+[2m2025-12-06T13:54:38.876389Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 4000 次采样, 15860.96 ops/s
+[2m2025-12-06T13:54:38.894394Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 4500 次采样, 16654.47 ops/s
+[2m2025-12-06T13:54:38.917848Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=user_lookup postgres 已完成 5000 次采样, 17027.02 ops/s
+[2m2025-12-06T13:54:39.023568Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 500 次采样, 4737.95 ops/s
+[2m2025-12-06T13:54:39.049657Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 1000 次采样, 7597.64 ops/s
+[2m2025-12-06T13:54:39.074830Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 1500 次采样, 9566.74 ops/s
+[2m2025-12-06T13:54:39.100674Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 2000 次采样, 10950.68 ops/s
+[2m2025-12-06T13:54:39.128466Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 2500 次采样, 11880.50 ops/s
+[2m2025-12-06T13:54:39.154802Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 3000 次采样, 12670.82 ops/s
+[2m2025-12-06T13:54:39.181242Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 3500 次采样, 13297.66 ops/s
+[2m2025-12-06T13:54:39.210239Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 4000 次采样, 13689.28 ops/s
+[2m2025-12-06T13:54:39.239669Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 4500 次采样, 13991.20 ops/s
+[2m2025-12-06T13:54:39.275944Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_small postgres 已完成 5000 次采样, 13970.13 ops/s
+[2m2025-12-06T13:54:39.420107Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 500 次采样, 3472.86 ops/s
+[2m2025-12-06T13:54:39.459229Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 1000 次采样, 5461.61 ops/s
+[2m2025-12-06T13:54:39.503666Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 1500 次采样, 6592.49 ops/s
+[2m2025-12-06T13:54:39.543938Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 2000 次采样, 7468.14 ops/s
+[2m2025-12-06T13:54:39.578071Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 2500 次采样, 8279.86 ops/s
+[2m2025-12-06T13:54:39.612015Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 3000 次采样, 8931.70 ops/s
+[2m2025-12-06T13:54:39.646664Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 3500 次采样, 9445.88 ops/s
+[2m2025-12-06T13:54:39.681178Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 4000 次采样, 9875.46 ops/s
+[2m2025-12-06T13:54:39.715029Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 4500 次采样, 10253.00 ops/s
+[2m2025-12-06T13:54:39.753133Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=range_large postgres 已完成 5000 次采样, 10482.19 ops/s
+[2m2025-12-06T13:54:39.844193Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 500 次采样, 5502.40 ops/s
+[2m2025-12-06T13:54:39.867451Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 1000 次采样, 8762.05 ops/s
+[2m2025-12-06T13:54:39.890896Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 1500 次采样, 10903.41 ops/s
+[2m2025-12-06T13:54:39.917189Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 2000 次采样, 12205.14 ops/s
+[2m2025-12-06T13:54:39.945608Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 2500 次采样, 13001.57 ops/s
+[2m2025-12-06T13:54:39.973298Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 3000 次采样, 13637.97 ops/s
+[2m2025-12-06T13:54:40.003503Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 3500 次采样, 13990.05 ops/s
+[2m2025-12-06T13:54:40.032722Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 4000 次采样, 14316.50 ops/s
+[2m2025-12-06T13:54:40.066022Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 4500 次采样, 14390.89 ops/s
+[2m2025-12-06T13:54:40.107414Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m scenario=order_page postgres 已完成 5000 次采样, 14120.71 ops/s
+[
+  {
+    "scenario": "pk_hit",
+    "ops": 5000,
+    "throughput_ops": 18106.424019822767,
+    "avg_ms": 0.6456107662000008,
+    "p50_ms": 0.601063,
+    "p95_ms": 1.035611,
+    "p99_ms": 1.535983
+  },
+  {
+    "scenario": "user_lookup",
+    "ops": 5000,
+    "throughput_ops": 17016.14950680273,
+    "avg_ms": 0.6717239298000005,
+    "p50_ms": 0.590817,
+    "p95_ms": 1.262173,
+    "p99_ms": 2.042386
+  },
+  {
+    "scenario": "range_small",
+    "ops": 5000,
+    "throughput_ops": 13962.81516894325,
+    "avg_ms": 0.8674490607999987,
+    "p50_ms": 0.806434,
+    "p95_ms": 1.417658,
+    "p99_ms": 1.9972349999999999
+  },
+  {
+    "scenario": "range_large",
+    "ops": 5000,
+    "throughput_ops": 10478.058111213886,
+    "avg_ms": 1.161359266799996,
+    "p50_ms": 1.0895839999999999,
+    "p95_ms": 1.917165,
+    "p99_ms": 2.544072
+  },
+  {
+    "scenario": "order_page",
+    "ops": 5000,
+    "throughput_ops": 14113.276100837369,
+    "avg_ms": 0.8810006347999993,
+    "p50_ms": 0.803292,
+    "p95_ms": 1.584512,
+    "p99_ms": 2.255551
+  }
+]
+[2m2025-12-06T13:54:40.107904Z[0m [32m INFO[0m [2mdb_performance_obvser::bench[0m[2m:[0m 基准结果已写入 "results/postgres/500000/bench.json"
